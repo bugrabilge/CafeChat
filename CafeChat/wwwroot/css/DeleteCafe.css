@@ -1,0 +1,80 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('/Login/images/bg01.jpg');
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 1000px; /* Tablonun maksimum genişliğini belirleyin */
+    margin-top: 100px;
+    margin-bottom: 50px; /* Tablonun altında boşluk bırakmak için margin-bottom eklendi */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    max-width: max-content; /* Tablonun genişliğini %100 yapın */
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow-x: auto; /* Yatay kaydırma çubuğunu ekleyin */
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+    text-align: left;
+}
+
+th {
+    background-color: #343a40;
+    color: #fff;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+button[type="submit"] {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button.delete[type="submit"] {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+    button.delete[type="submit"]:hover {
+        background-color: #c82333;
+    }
+
+button.change-status[type="submit"] {
+    background-color: #ffc107; /* Sarımsı renk */
+    color: #000;
+}
+
+    button.change-status[type="submit"]:hover {
+        background-color: #e0a800; /* Koyu bir tonu için hafif bir renk değişikliği */
+    }
+

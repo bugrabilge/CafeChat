@@ -1,0 +1,71 @@
+﻿/* AdminPanel.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('/Login/images/bg01.jpg');
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-panel {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+    .admin-panel form {
+        display: grid;
+        gap: 10px;
+    }
+
+    .admin-panel label {
+        font-weight: bold;
+    }
+
+    .admin-panel input[type="text"],
+    .admin-panel textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .admin-panel button[type="submit"],
+    .admin-panel .admin-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background: transparent; /* Önceki stillerdeki arka plan rengini kaldırma */
+    }
+
+    .admin-panel button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .admin-panel .admin-button {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+        .admin-panel button[type="submit"]:hover,
+        .admin-panel .admin-button:hover {
+            background-color: #a64bf4; /* Yeni hover arka plan rengi */
+        }
+
+        .admin-panel button[type="submit"][disabled],
+        .admin-panel .admin-button[disabled] {
+            background-color: #ccc; /* Yeni devre dışı arka plan rengi */
+            color: #666; /* Yeni devre dışı renk */
+            cursor: not-allowed;
+        }
+
+/* Rest of your CSS styles here */

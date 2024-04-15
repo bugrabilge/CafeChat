@@ -1,0 +1,58 @@
+﻿@model EntityLayer.Concrete.Cafe // YourNamespace.Cafe, Cafe sınıfının bulunduğu namespace'i temsil etmelidir.
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/DeleteCafe.css">
+</head>
+<body>
+    <h1>Cafe Listesi</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ad</th>
+                <th>Kapasite</th>
+                <th>Yönetici ID</th>
+                <th>Adres</th>
+                <th>Durum</th>
+                <th>Sil</th>
+                <th>Statü Değiştir</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cafe in ViewBag.Cafes)
+            {
+                <tr>
+                    <td>@cafe.Id</td>
+                    <td>@cafe.Name</td>
+                    <td>@cafe.Capacity</td>
+                    <td>@cafe.ManagerId</td>
+                    <td>@cafe.Adress</td>
+                    <td>@(cafe.Status ? "Aktif" : "Pasif")</td>
+                    <td>
+                        <form asp-action="DeleteCafe" asp-controller="Admin" method="post">
+                            <input type="hidden" name="id" value="@cafe.Id" />
+                            <button type="submit" class="delete">Sil</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-action="ChangeCafeStatus" asp-controller="Admin" method="post">
+                            <input type="hidden" name="id" value="@cafe.Id" />
+                            <button type="submit" class="change-status">Status Değiştir</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

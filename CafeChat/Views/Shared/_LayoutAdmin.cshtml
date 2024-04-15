@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+@await Html.PartialAsync("/Views/LayoutPartial/_ScriptPartial.cshtml")
+<body>
+    @await Html.PartialAsync("/Views/LayoutPartial/AdminHeader.cshtml")
+    @await Component.InvokeAsync("NToastNotify");
+    @RenderBody()
+</body>
+</html>

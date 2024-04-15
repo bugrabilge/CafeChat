@@ -3,14 +3,32 @@ using BusinessLayer.Concrete;
 using CafeChat.Hubs;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
+using NToastNotify;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddNToastNotifyToastr(new NToastNotify.ToastrOptions()
+    {
+        PositionClass = ToastPositions.BottomRight,
+        TimeOut = 3000,
+        ProgressBar = true,
+        NewestOnTop= true,
+        CloseButton= true,
+
+    });
 builder.Services.AddSignalR();
+
+// Dals - Repositories
 builder.Services.AddScoped<IUsersDal, EfUsersRepository>();
+builder.Services.AddScoped<ICafeDal, EfCafeRepository>();
+builder.Services.AddScoped<IUserTypeDal, EfUserTypeRepository>();
+
+// Services  -Managers
 builder.Services.AddScoped<IUsersService, UsersManager>();
+builder.Services.AddScoped<ILoginService, LoginManager>();
+builder.Services.AddScoped<IAdminService, AdminManager>();
 
 builder.Services.AddSession(options =>
 {
@@ -28,7 +46,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseNToastNotify();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

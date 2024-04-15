@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using CafeChat.Constants;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using System;
@@ -12,10 +13,12 @@ namespace BusinessLayer.Concrete
     public class UsersManager : IUsersService
     {
         IUsersDal _usersDal;
+        IUserTypeDal _userTypeDal;
 
-        public UsersManager(IUsersDal usersDal)
+        public UsersManager(IUsersDal usersDal, IUserTypeDal userTypeDal)
         {
             _usersDal = usersDal;
+            _userTypeDal = userTypeDal;
         }
 
         public List<Users> GetAllList()
@@ -41,6 +44,16 @@ namespace BusinessLayer.Concrete
         public void UserUpdate(Users users)
         {
             _usersDal.Update(users);
+        }
+
+        public List<Users> GetAllManagers()
+        {
+            return _usersDal.GetListAll().Where(u => u.UserTypeId == (int)UsersConstants.UserTypes.CafeManager).ToList();
+        }
+
+        public List<UserType> GetAllUserTypes()
+        {
+            return _userTypeDal.GetListAll();
         }
     }
 }

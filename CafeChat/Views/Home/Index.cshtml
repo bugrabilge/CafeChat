@@ -80,13 +80,13 @@
                         Giriş Yap
                     </span>
 
-                    <div class="wrap-input100 validate-input m-b-23" data-validate="Username is required">
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Lütfen kullanıcı adı giriniz">
                         <span class="label-input100">Kullanıcı Adı </span>
                         <input href="/Service/Convert/" class="input100" type="text" asp-for="Username" placeholder="Kullanıcı Adınızı Giriniz">
                         <span class="focus-input100" data-symbol="&#xf206;"></span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <div class="wrap-input100 validate-input" data-validate="Lütfen şifrenizi giriniz">
                         <span class="label-input100">Şifre </span>
                         <input href="/Service/Convert/" class="input100" type="password" asp-for="Password" placeholder="Şifrenizi Giriniz">
                         <span class="focus-input100" data-symbol="&#xf190;"></span>
@@ -97,6 +97,23 @@
                             Şifremi Unuttum
                         </a>
                     </div>
+
+
+                    @if (ViewBag.Status != null)
+                    {
+                        @if (ViewBag.Status)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @ViewBag.Message
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @ViewBag.Message
+                            </div>
+                        }
+                    }
 
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">

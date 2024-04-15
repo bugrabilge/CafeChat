@@ -17,5 +17,7 @@ namespace DataAccessLayer.Concrete
         }
 
         public DbSet<Users> Users { get; set; }
+        public DbSet<Cafe> Cafe { get; set; }
+        public DbSet<UserType> UserType { get; set; }
     }
 }

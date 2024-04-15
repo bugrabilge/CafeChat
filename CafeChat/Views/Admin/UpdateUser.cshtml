@@ -1,0 +1,103 @@
+﻿@model EntityLayer.Concrete.Users // Kullanıcı bilgilerini alacak bir view model oluşturmalısınız.
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; // Sayfanın layoutunu belirtin.
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Bilgileri Güncelle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/UpdateUser.css">
+</head>
+<body>
+    <h1>User List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Username</th>
+                <th>Cafe ID</th>
+                <th>User Type ID</th>
+                <th>User Status</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in ViewBag.Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>
+                        <input type="text" value="@user.Name" name="name" />
+                    </td>
+                    <td>
+                        <input type="text" value="@user.Surname" name="surname" />
+                    </td>
+                    <td>
+                        <input type="text" value="@user.Username" name="username" />
+                    </td>
+                    <td>
+                        <input type="text" value="@user.CafeId" name="cafeId" />
+                    </td>
+                    <td>
+                        <select name="userTypeId">
+                            @foreach (var userType in ViewBag.UserTypes)
+                            {
+                                @if (user.UserTypeId == (int)userType.Id)
+                                {
+                                    <option value="@userType.Id" selected>@userType.Type</option>
+                                }
+                                else
+                                {
+                                    <option value="@userType.Id">@userType.Type</option>
+                                }
+                            }
+                        </select>
+                    </td>
+
+
+                    <td>
+                        <input type="checkbox" @(user.UserStatus ? "checked" : "") name="userStatus" />
+                    </td>
+                    <td>
+                        <input type="text" value="@user.PhoneNumber" name="phoneNumber" />
+                    </td>
+                    <td>
+                        <form asp-action="UpdateUser" asp-controller="Admin" method="post">
+                            <input type="hidden" name="id" value="@user.Id" />
+                            <input type="text" name="name" value="@user.Name" />
+                            <input type="text" name="surname" value="@user.Surname" />
+                            <input type="text" name="username" value="@user.Username" />
+                            <input type="text" name="cafeId" value="@user.CafeId" />
+                            <select name="userTypeId">
+                                @foreach (var userType in ViewBag.UserTypes)
+                                {
+                                    @if (user.UserTypeId == (int)userType.Id)
+                                    {
+                                        <option value="@userType.Id" selected>@userType.Type</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@userType.Id">@userType.Type</option>
+                                    }
+                                }
+                            </select>
+                            <input type="checkbox" name="userStatus" @(user.UserStatus ? "checked" : "") />
+                            <input type="text" name="phoneNumber" value="@user.PhoneNumber" />
+                            <button type="submit">Güncelle</button>
+                        </form>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

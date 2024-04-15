@@ -14,6 +14,8 @@ namespace BusinessLayer.Abstract
         void UserUpdate(Users users);
         List<Users> GetAllList();
         Users GetByID(int id);
+        public List<Users> GetAllManagers();
+        public List<UserType> GetAllUserTypes();
 
     }
 }

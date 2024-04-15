@@ -1,0 +1,54 @@
+﻿@model EntityLayer.Concrete.Cafe
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/CafeAdd.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Cafe Ekle</h2>
+        <form id="cafeForm" asp-action="CafeAdd" asp-controller="Admin" method="post">
+            <div class="form-group">
+                <label for="name">Cafe Adı:</label>
+                <input type="text" id="name" name="Name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="capacity">Kapasite:</label>
+                <input type="number" id="capacity" name="Capacity" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="managerId">Yönetici:</label>
+                <select id="managerId" name="ManagerId" class="form-control" required>
+                    <option value="">Yönetici Seçiniz</option>
+                    @foreach (var manager in ViewBag.Managers)
+                    {
+                        <option value="@manager.Id">@manager.Username</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="adress">Adres:</label>
+                <input type="text" id="adress" name="Adress" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="status">Durum:</label>
+                <select id="status" name="Status" class="form-control" required>
+                    <option value="true">Aktif</option>
+                    <option value="false">Pasif</option>
+                </select>
+            </div>
+            <button id="cafeSubmitBtn" type="submit">Cafe Ekle</button>
+        </form>
+    </div>
+</body>
+</html>
