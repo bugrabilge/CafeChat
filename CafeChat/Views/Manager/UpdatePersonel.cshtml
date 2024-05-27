@@ -1,0 +1,65 @@
+﻿@model EntityLayer.Concrete.Users
+
+@{
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personel Bilgileri Güncelle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/UpdateUser.css">
+</head>
+<body>
+    <h1>Personel Listesi</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Kullanıcı Adı</th>
+                <th>Şifre</th>
+                <th>Telefon</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in ViewBag.Users)
+            {
+                <tr>
+                    <form action="/Manager/UpdatePersonel" method="post" style="display:inline;">
+                    <td>
+                        <input type="text" value="@user.Name" name="Name" />
+                    </td>
+                    <td>
+                        <input type="text" value="@user.Surname" name="Surname" />
+                    </td>
+                    <td>
+                        <input type="text" value="@user.Username" name="Username" />
+                    </td>
+                    <td>
+                        <input type="text" value="@user.Password" name="Password" />
+                    </td>
+                    <td>
+                        <input type="text" value="@user.PhoneNumber" name="PhoneNumber" />
+                    </td>
+                    <td>
+                        <input type="hidden" name="Id" value="@user.Id" />
+                        <button type="submit" class="btn btn-success">Güncelle</button>
+                    </td>
+                    </form>
+                    <td>
+                        <form action="/Manager/DeletePersonel" method="post" style="display:inline;">
+                            <input type="hidden" name="Id" value="@user.Id" />
+                            <button type="submit" class="btn btn-danger">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

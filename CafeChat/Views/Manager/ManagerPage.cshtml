@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/AdminPanel.css">
+</head>
+<body>
+    <div class="admin-panel">
+        <form id="cafeForm" asp-action="GoToAddPersonelPage" asp-controller="Manager" method="post">
+            <button id="cafeSubmitBtn" type="submit">Kullanıcı Ekle</button>
+        </form>
+        <form id="cafeForm" asp-action="GoToUpdatePersonelPage" asp-controller="Manager" method="post">
+            <button id="cafeSubmitBtn" type="submit">Kullanıcı Düzenle</button>
+        </form>
+    </div>
+</body>
+</html>
