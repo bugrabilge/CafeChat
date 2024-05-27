@@ -22,6 +22,7 @@
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Username</th>
+                <th>Password</th>
                 <th>Cafe ID</th>
                 <th>User Type ID</th>
                 <th>User Status</th>
@@ -33,67 +34,66 @@
             @foreach (var user in ViewBag.Users)
             {
                 <tr>
-                    <td>@user.Id</td>
-                    <td>
-                        <input type="text" value="@user.Name" name="name" />
-                    </td>
-                    <td>
-                        <input type="text" value="@user.Surname" name="surname" />
-                    </td>
-                    <td>
-                        <input type="text" value="@user.Username" name="username" />
-                    </td>
-                    <td>
-                        <input type="text" value="@user.CafeId" name="cafeId" />
-                    </td>
-                    <td>
-                        <select name="userTypeId">
-                            @foreach (var userType in ViewBag.UserTypes)
-                            {
-                                @if (user.UserTypeId == (int)userType.Id)
-                                {
-                                    <option value="@userType.Id" selected>@userType.Type</option>
-                                }
-                                else
-                                {
-                                    <option value="@userType.Id">@userType.Type</option>
-                                }
-                            }
-                        </select>
-                    </td>
-
-
-                    <td>
-                        <input type="checkbox" @(user.UserStatus ? "checked" : "") name="userStatus" />
-                    </td>
-                    <td>
-                        <input type="text" value="@user.PhoneNumber" name="phoneNumber" />
-                    </td>
-                    <td>
-                        <form asp-action="UpdateUser" asp-controller="Admin" method="post">
-                            <input type="hidden" name="id" value="@user.Id" />
-                            <input type="text" name="name" value="@user.Name" />
-                            <input type="text" name="surname" value="@user.Surname" />
-                            <input type="text" name="username" value="@user.Username" />
-                            <input type="text" name="cafeId" value="@user.CafeId" />
+                    <form action="/Admin/UpdateUser" method="post" style="display:inline;">
+                        <td>@user.Id</td>
+                        <td>
+                            <input type="hidden" name="Id" value="@user.Id" />
+                            <input type="text" value="@user.Name" name="Name" />
+                        </td>
+                        <td>
+                            <input type="text" value="@user.Surname" name="Surname" />
+                        </td>
+                        <td>
+                            <input type="text" value="@user.Username" name="Username" />
+                        </td>
+                        <td>
+                            <input type="text" value="@user.Password" name="Password" />
+                        </td>
+                        <td>
+                            <input type="text" value="@user.CafeId" name="CafeId" />
+                        </td>
+                        <td>
                             <select name="userTypeId">
-                                @foreach (var userType in ViewBag.UserTypes)
-                                {
-                                    @if (user.UserTypeId == (int)userType.Id)
+                                    @foreach (var userType in ViewBag.UserTypes)
                                     {
+                                        @if (user.UserTypeId == (int)userType.Id)
+                                        {
                                         <option value="@userType.Id" selected>@userType.Type</option>
+                                        }
+                                        else
+                                        {
+                                        <option value="@userType.Id">@userType.Type</option>
+                                        }
+                                    }
+                            </select>
+                        </td>
+                        <td>
+                            <select name="UserStatus">
+                                @foreach (var status in ViewBag.UserStatuses)
+                                {
+                                    @if (user.UserStatus == status.Id)
+                                    {
+                                    <option value="@status.Id" selected>@status.Name</option>
                                     }
                                     else
                                     {
-                                        <option value="@userType.Id">@userType.Type</option>
+                                    <option value="@status.Id">@status.Name</option>
                                     }
                                 }
                             </select>
-                            <input type="checkbox" name="userStatus" @(user.UserStatus ? "checked" : "") />
-                            <input type="text" name="phoneNumber" value="@user.PhoneNumber" />
-                            <button type="submit">Güncelle</button>
+                        </td>
+                        <td>
+                            <input type="text" value="@user.PhoneNumber" name="PhoneNumber" />
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </td>
+                    </form>
+                    <td>
+                        <form action="/Admin/DeleteUser" method="post" style="display:inline;">
+                            <input type="hidden" name="Id" value="@user.Id" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
-
                     </td>
                 </tr>
             }

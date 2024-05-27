@@ -3,6 +3,7 @@ using BusinessLayer.Concrete;
 using CafeChat.Hubs;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using NToastNotify;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,12 @@ builder.Services.AddScoped<IUsersService, UsersManager>();
 builder.Services.AddScoped<ILoginService, LoginManager>();
 builder.Services.AddScoped<IAdminService, AdminManager>();
 
+builder.Services.AddDataProtection();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
+{
+    x.AccessDeniedPath = "/Home/AccessDeniedPage";
+});
+
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = ".AdventureWorks.Session";
@@ -51,7 +58,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 // session middleware

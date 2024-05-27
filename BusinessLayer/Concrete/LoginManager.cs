@@ -6,10 +6,12 @@ using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using EntityLayer.Constants;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,7 +29,12 @@ namespace BusinessLayer.Concrete
         {
             var loginUser = _usersDal.GetListAll().FirstOrDefault(x => x.Username == user.Username && x.Password == user.Password);
 
-            if (loginUser != null)
+            if (loginUser != null && !loginUser.UserStatus)
+            {
+                return new ErrorDataResult<Users>(AppMessages.ACCOUNT_NOT_ACTIVATED);
+            }
+
+            if (loginUser != null && loginUser.UserStatus)
             {
                 return new SuccessDataResult<Users>(loginUser, AppMessages.LOGIN_SUCCEEDED);
             }
@@ -35,6 +42,31 @@ namespace BusinessLayer.Concrete
             {
                 return new ErrorDataResult<Users>(AppMessages.ACCESS_DENIED);
             }
+        }
+
+        public ClaimsIdentity SetRolesAndAuthenticate(Users user)
+        {
+            string userRole = "";
+
+            switch (user.UserTypeId)
+            {
+                case 1:
+                    userRole = "Admin";
+                    break;
+                case 2:
+                    userRole = "CafeManager";
+                    break;
+                case 3:
+                    userRole = "CafePersonel";
+                    break;
+            }
+
+            ClaimsIdentity identity = new ClaimsIdentity(new[] {
+            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.Role, userRole)
+            }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return identity;
         }
     }
 }

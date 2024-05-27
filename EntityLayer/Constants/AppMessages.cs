@@ -16,5 +16,6 @@ namespace EntityLayer.Constants
         public const string ACCESS_DENIED = "Giriş Reddedildi!";
         public const string LOGIN_SUCCEEDED = "Giriş Başarılı!";
         public const string ACCOUNT_NOT_FOUND = "Girilen mail'e ait bir hesap bulunamamıştır";
+        public const string ACCOUNT_NOT_ACTIVATED = "Hesabınız Aktifleştirilmemiştir. Admin ile iletişime geçiniz.";
     }
 }

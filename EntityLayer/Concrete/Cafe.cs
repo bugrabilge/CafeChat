@@ -14,7 +14,6 @@ namespace EntityLayer.Concrete
         public string Name { get; set; }
         public int Capacity { get; set; }
         public int ManagerId { get; set; }
-        public virtual Users Users { get; set; }
         public string Adress { get; set; }
         public bool Status { get; set; }
     }

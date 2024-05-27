@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
+using System.Security.Principal;
+using Microsoft.AspNetCore.Identity;
 
 namespace CafeChat.Controllers
 {
@@ -17,6 +20,7 @@ namespace CafeChat.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IUsersService _usersService;
         private readonly ILoginService _loginService;
+        public static Users loggedUser;
 
         public HomeController(ILogger<HomeController> logger, IUsersService userService, ILoginService loginService)
         {
@@ -41,8 +45,11 @@ namespace CafeChat.Controllers
 
             if (result.Status) 
             {
-                var sessionName = "userId";
-                HttpContext.Session.SetInt32(sessionName, result.Data.Id);
+                ClaimsIdentity identity = _loginService.SetRolesAndAuthenticate(result.Data);
+                var principal = new ClaimsPrincipal(identity);
+                var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                loggedUser = result.Data;
+
                 return RedirectDueToUserType(result.Data.UserTypeId);
 
             }
@@ -95,7 +102,7 @@ namespace CafeChat.Controllers
                     return RedirectToAction("AdminPage", "Admin");
 
                 case (int)UsersConstants.UserTypes.CafeManager:
-                    return RedirectToAction("Index", "Service");
+                    return RedirectToAction("ManagerPage", "Manager");
 
                 case (int)UsersConstants.UserTypes.CafePersonel:
                     return RedirectToAction("Index", "Service");
@@ -109,6 +116,16 @@ namespace CafeChat.Controllers
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDeniedPage()
+        {
+            return View();
+        }
+
+        public static Users LoggedUser()
+        {
+            return loggedUser;
         }
 
         public IActionResult Privacy()
