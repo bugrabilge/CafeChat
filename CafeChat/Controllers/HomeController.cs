@@ -57,42 +57,6 @@ namespace CafeChat.Controllers
             {
                 return View();
             }
-            // Check username and password
-            //using (var context = new Context())
-            //{
-            //    var loginUser = context.Users.FirstOrDefault(x => x.Username == user.Username && x.Password == user.Password);
-
-            //    if (loginUser != null)
-            //    {
-            //        var sessionName = "userId";
-            //        HttpContext.Session.SetInt32(sessionName, loginUser.Id);
-            //        ViewBag.Log = "Login Succeeded";
-
-            //        // Cafe Personel
-            //        if (loginUser.UserTypeId == (int)UsersConstants.UserTypes.CafePersonel)
-            //        {
-            //            return RedirectToAction("Index", "Service");
-            //        }
-
-            //        // Cafe Manager
-            //        if (loginUser.UserTypeId == (int)UsersConstants.UserTypes.CafeManager)
-            //        {
-            //            return RedirectToAction("Index", "Service");
-            //        }
-
-            //        // Admin
-            //        if(loginUser.UserTypeId == (int)UsersConstants.UserTypes.Admin)
-            //        {
-            //            return RedirectToAction("AdminPage", "Admin");
-            //        }
-
-            //    }
-            //    else
-            //    {
-            //        ViewBag.Log = "Access Denied";
-            //        return View();
-            //    }
-            //}
         }
         public IActionResult RedirectDueToUserType(int userTypeId)
         {
